@@ -16,6 +16,7 @@ public class AddressBookController {
     @Autowired
     IAddressBookService addressBookService;
 
+
     @RequestMapping(path = {"", "/"}, method = RequestMethod.GET)
     public ResponseEntity<ResponseDTO<?>> getAllAddressBook() {
         try {
