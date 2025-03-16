@@ -3,6 +3,7 @@ package com.lcwd.bridgelabz.addressbook.controller;
 import com.lcwd.bridgelabz.addressbook.dto.AddressBookDTO;
 import com.lcwd.bridgelabz.addressbook.dto.ResponseDTO;
 import com.lcwd.bridgelabz.addressbook.interfaces.IAddressBookService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/addressbook")
+@Tag(name = "Address Book", description = "Manage contacts in address book")
 public class AddressBookController {
     @Autowired
     IAddressBookService addressBookService;
