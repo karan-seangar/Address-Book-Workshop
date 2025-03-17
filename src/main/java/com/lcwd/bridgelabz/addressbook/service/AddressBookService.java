@@ -22,6 +22,7 @@ public class AddressBookService implements IAddressBookService {
 
 
     @Override
+    @Cacheable(value = "addressBookCache")
     public List<AddressBookDTO> getAddressBookData() {
         List<AddressBook> addressBooksLists = addressBookRepository.findAll();
         return addressBooksLists.stream()
@@ -30,6 +31,7 @@ public class AddressBookService implements IAddressBookService {
     }
 
     @Override
+    @Cacheable(value = "addressBookCache", key = "#id")
     public AddressBookDTO getAddressBookDataById(long id) {
         AddressBook addressBook = addressBookRepository.findById(id).orElseThrow(() -> new RuntimeException("Employee Payroll not found with id: " + id));
         return modelMapper.map(addressBook, AddressBookDTO.class);

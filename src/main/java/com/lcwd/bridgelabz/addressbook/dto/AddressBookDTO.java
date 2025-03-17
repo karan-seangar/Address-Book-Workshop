@@ -1,6 +1,7 @@
 package com.lcwd.bridgelabz.addressbook.dto;
 
 import com.lcwd.bridgelabz.addressbook.model.AddressBook;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "ADDRESS_BOOK")
 public class AddressBookDTO {
     @NotBlank(message = "Name cannot be empty")
     @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
