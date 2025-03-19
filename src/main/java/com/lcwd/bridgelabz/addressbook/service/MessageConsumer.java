@@ -7,7 +7,6 @@ import static com.lcwd.bridgelabz.addressbook.config.RabbitMQConfig.QUEUE_NAME;
 
 @Component
 public class MessageConsumer {
-
     private final EmailService emailService;
 
     // ✅ Constructor Injection (Better than Field Injection)

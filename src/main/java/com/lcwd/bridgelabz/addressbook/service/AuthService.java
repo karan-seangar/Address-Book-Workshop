@@ -4,14 +4,20 @@ import com.lcwd.bridgelabz.addressbook.dto.*;
 import com.lcwd.bridgelabz.addressbook.model.User;
 import com.lcwd.bridgelabz.addressbook.repository.UserRepository;
 import com.lcwd.bridgelabz.addressbook.util.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class AuthService {
+    @Autowired
+    MessageProducer messageProducer;
+
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
@@ -33,7 +39,14 @@ public class AuthService {
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        userRepository.save(user);
+        try {
+            emailService.sendEmail(request.getEmail(), "Registration Successful", "You have successfully registered.");
+            String customMessage = "REGISTER|" + user.getEmail() + "|" + "Registered";
+            messageProducer.sendMessage(customMessage);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "User registered but email failed to send");
+        }
+
         return "User registered successfully";
     }
 
